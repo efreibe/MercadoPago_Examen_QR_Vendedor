@@ -16,7 +16,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 	</head>
 	<body>
 		<div>
-			<img width="100px" style="display:inline;" src="https://pbs.twimg.com/profile_images/1240629438397722628/qmOFm9ar_400x400.jpg">
+			<img width="100px" style="display:inline;" src="https://picsum.photos/400/400">
 			<h1>POINT OF SALE | ACME</h1>
 			<span>Mercado Pago inStore QR Seller. Attended Mode. Exam version 1.0</span>
 		</div>
@@ -63,7 +63,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 
 					<button type="button" class="btn btn-primary" id="createStore">
 					  Create Store
-					</button> 
+					</button>
 					<br/><br/>
 					Q1) Store creation response:<br/>
 					<textarea id="responseStore"></textarea>
@@ -90,7 +90,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 					<br/>
 					<button type="button" class="btn btn-primary" id="createPOS">
 					  Create POS/QR
-					</button> 
+					</button>
 					<br/><br/>
 					Q2) POS creation response:<br/>
 					<textarea id="responsePOS"></textarea>
@@ -117,7 +117,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 					<label for="external_reference">External_Reference:</label><input type="text" id="external_reference" placeholder="External_Reference">
 					<br/>
 					<div class=""><h3>Order:<h3></div>
-					<br/>	
+					<br/>
 					<div class="">
 						<table class="table table-striped">
 						  <thead>
@@ -137,14 +137,14 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 					</div>
 					<div id="paymentMethods" class=""></div>
 					<div id="paymentStatusView" class=""></div>
-					
+
 
 					<!-- Button trigger modal -->
 					<center>
 					<span>Payment Method: </span>
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-option="Cash">
 					  Cash
-					</button> 
+					</button>
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-option="Mercado Pago">
 					  Mercado Pago - QR
 					</button>
@@ -163,7 +163,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 		  </div>
 		</div>
 		<br/><br/>
-		
+
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
@@ -175,7 +175,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        
+
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-primary">Cancel Payment</button>
@@ -186,7 +186,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 
 
 	</body>
-	
+
 	<!-- Main APP -->
 	<script src="assets/js/acme.js"></script>
 
