@@ -23,20 +23,27 @@ $notification = json_decode($received_json,true);
 
 $n=0;
 
-if(isset($notification['resource'])){$resource = $notification['resource'];$n=$n+1;}else{$resource= "";}
-if(isset($notification['topic'])){$topic =$notification['topic'];$n=$n+1;}else{$topic ="";}
+if (isset($notification['resource'])) {
+	$resource = $notification['resource'];
+	$n = $n + 1;
+} else {
+	$resource= "";
+}
 
+if (isset($notification['topic'])) {
+	$topic = $notification['topic'];
+	$n = $n + 1;
+} else {
+	$topic = "";
+}
 
-
-
-if ($n==2){
+if ($n == 2) {
 	// ***********************************************
 	// GUARDAR LOS LA NOTIFICACIÓN EN ARCHIVO DE TEXTO
 	// ***********************************************
 
 	// retorna http 200 conforme recibió bien la notificación:
 	header("HTTP/1.1 200 OK");
-
 
 	// Guarda el campo resource de la notificación recibida:
 	// seguramente deberás dar derechos al archivo notifications.txt

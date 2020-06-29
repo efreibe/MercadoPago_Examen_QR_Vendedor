@@ -19,7 +19,5 @@ if ($lastResource === FALSE) {
 // Agrega la $url necesaria para revisar el estado del pago en base al recurso recibido de la notificación
 // Sustituye el método por su correspondiente: get, put, post, delete
 
-$url = "https://api.mercadopago.com/merchant_orders/$lastResource";
-
-curl_call("get","$url?access_token=$access_token","");
+curl_call("get","$lastResource?access_token=$access_token","");
 ?>
