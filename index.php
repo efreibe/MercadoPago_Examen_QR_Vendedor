@@ -195,10 +195,10 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 							Mercado Pago - QR
 						</button>
 						<br />
-
+<!--
 						<input type="checkbox" id="usarSearch" value="1" style="width:auto;position:relative;top:9px;">
 							Usar order status
-						</input>
+						</input> -->
 
 						<br />
 						<br />

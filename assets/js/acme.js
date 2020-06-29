@@ -116,107 +116,101 @@ $(document).ready(function () {
                 checkStatus = setInterval(function () {
                   // Comprueba estado del pago vía Seach de Merchant_order
 
-                  if ($('#usarSearch').prop('checked')) {
-                    $.get(
-                      'api/order/status/',
-                      { external_reference: external_reference },
-                      function (data) {
-                        console.log('Search de Merchant_order:')
-                        console.log(data)
-
-                        var elements = data.elements
-                        var totalElements = data.total
-
-                        if (totalElements > 0) {
-                          var orderStatus = elements[totalElements - 1].status
-                          $('#orderStatus').text(orderStatus)
-                          $('#loading').html(
-                            "<img src='assets/img/ajax-loader.gif'>"
-                          )
-
-                          try {
-                            if (
-                              orderStatus == 'opened' &&
-                              elements[totalElements - 1].payments[0].status ==
-                                'rejected'
-                            ) {
-                              // print
-                              if ($('#paymentStatusRejected').text() == '') {
-                                $('#paymentStatusRejected').text(
-                                  JSON.stringify(data)
-                                )
-                              }
-                            }
-                          } catch (e) {}
-
-                          // Si la orden se cerró (pagó) termina el timeout y pinta el JSON resultante y cierra el modal
-
-                          if (orderStatus == 'closed') {
-                            if (cashSound) {
-                              playSound('cash')
-                            }
-                            cashSound = false
-                            setTimeout(clearInterval(checkStatus), 3000)
-
-                            $('#orderFinalStatus').text(
-                              elements[totalElements - 1]
-                            )
-                            $('#exampleModal').modal('hide')
-                            $('#paymentStatusSearch').text(JSON.stringify(data))
-                          } // Fin if
-                        } // Fin totalElements
-                      }
-                    )
-                  } else {
-                    // Comprueba el estado del pago de la orden en servicio de recepción de notificaciones
-
-                    $.get('api/notifications/get/', {}, function (data) {
-                      console.log('Search Notifications:')
+                  $.get(
+                    'api/order/status/',
+                    { external_reference: external_reference },
+                    function (data) {
+                      console.log('Search de Merchant_order:')
                       console.log(data)
 
-                      if (
-                        data.status == 'opened' &&
-                        data.external_reference == external_reference
-                      ) {
-                        $('#orderStatus').text(data.status)
+                      var elements = data.elements
+                      var totalElements = data.total
+
+                      if (totalElements > 0) {
+                        var orderStatus = elements[totalElements - 1].status
+                        $('#orderStatus').text(orderStatus)
                         $('#loading').html(
                           "<img src='assets/img/ajax-loader.gif'>"
                         )
-                      }
 
-                      try {
-                        if (
-                          orderStatus == 'opened' &&
-                          elements[totalElements - 1].payments[0].status ==
-                            'rejected'
-                        ) {
-                          // print
-                          if ($('#paymentStatusRejected').text() == '') {
-                            $('#paymentStatusRejected').text(
-                              JSON.stringify(data)
-                            )
+                        try {
+                          if (
+                            orderStatus == 'opened' &&
+                            elements[totalElements - 1].payments[0].status ==
+                              'rejected'
+                          ) {
+                            // print
+                            if ($('#paymentStatusRejected').text() == '') {
+                              $('#paymentStatusRejected').text(
+                                JSON.stringify(data)
+                              )
+                            }
                           }
-                        }
-                      } catch (e) {}
+                        } catch (e) {}
 
-                      // Si la orden se cerró (pagó) se termina la búsqueda y cierra modal.
+                        // Si la orden se cerró (pagó) termina el timeout y pinta el JSON resultante y cierra el modal
 
+                        if (orderStatus == 'closed') {
+                          if (cashSound) {
+                            playSound('cash')
+                          }
+                          cashSound = false
+                          setTimeout(clearInterval(checkStatus), 3000)
+
+                          $('#orderFinalStatus').text(
+                            elements[totalElements - 1]
+                          )
+                          $('#exampleModal').modal('hide')
+                          $('#paymentStatusSearch').text(JSON.stringify(data))
+                        } // Fin if
+                      } // Fin totalElements
+                    }
+                  )
+
+                  // Comprueba el estado del pago de la orden en servicio de recepción de notificaciones
+
+                  $.get('api/notifications/get/', {}, function (data) {
+                    console.log('Search Notifications:')
+                    console.log(data)
+
+                    if (
+                      data.status == 'opened' &&
+                      data.external_reference == external_reference
+                    ) {
+                      $('#orderStatus').text(data.status)
+                      $('#loading').html(
+                        "<img src='assets/img/ajax-loader.gif'>"
+                      )
+                    }
+
+                    try {
                       if (
-                        data.status == 'closed' &&
-                        data.external_reference == external_reference
+                        orderStatus == 'opened' &&
+                        elements[totalElements - 1].payments[0].status ==
+                          'rejected'
                       ) {
-                        if (cashSound) {
-                          playSound('cash')
+                        // print
+                        if ($('#paymentStatusRejected').text() == '') {
+                          $('#paymentStatusRejected').text(JSON.stringify(data))
                         }
-                        cashSound = false
-                        setTimeout(clearInterval(checkStatus), 3000)
-                        $('#exampleModal').modal('hide')
-                        $('#paymentStatusNotification').text(
-                          JSON.stringify(data)
-                        )
                       }
-                    })
-                  }
+                    } catch (e) {}
+
+                    // Si la orden se cerró (pagó) se termina la búsqueda y cierra modal.
+
+                    if (
+                      data.status == 'closed' &&
+                      data.external_reference == external_reference
+                    ) {
+                      if (cashSound) {
+                        playSound('cash')
+                      }
+                      cashSound = false
+                      setTimeout(clearInterval(checkStatus), 3000)
+                      $('#exampleModal').modal('hide')
+                      $('#paymentStatusNotification').text(JSON.stringify(data))
+                    }
+                  })
                 }, 3000) // finaliza intervalo
               }
             ) // end get pos information
