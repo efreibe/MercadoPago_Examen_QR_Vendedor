@@ -27,7 +27,7 @@ $(document).ready(function () {
   // borrando la caché del navegador.
   fillCountrySelector()
 
-  var documento = 'xxxxxxxx'
+  var documento = '24424376'
   var contador = window.location.hash.substring(1) || '001'
 
   // Abre modal al pulsar sobre el botón de pagar con Mercado Pago.
