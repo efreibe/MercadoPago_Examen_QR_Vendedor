@@ -21,5 +21,5 @@ if ($lastResource === FALSE) {
 
 $url = "https://api.mercadopago.com/merchant_orders/$lastResource";
 
-curl_call("get","$url?access_token=$access_token");
+curl_call("get","$url?access_token=$access_token","");
 ?>

@@ -17,5 +17,5 @@ $external_id = $_REQUEST["external_id"];
 
 $url = "https://api.mercadopago.com/mpmobile/instore/qr/$collector_id/$external_id";
 
-curl_call("delete","$url?access_token=$access_token");
+curl_call("delete","$url?access_token=$access_token", "");
 ?>

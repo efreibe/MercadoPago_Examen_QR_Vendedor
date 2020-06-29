@@ -17,5 +17,5 @@ $external_reference = $_REQUEST["external_reference"];
 
 $url = "https://api.mercadopago.com/merchant_orders/search";
 
-curl_call("get","$url?external_reference=$external_reference&access_token=$access_token");
+curl_call("get","$url?external_reference=$external_reference&access_token=$access_token","");
 ?>
