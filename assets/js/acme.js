@@ -412,7 +412,6 @@ $(document).ready(function () {
       location: {
         street_name: streetName,
         street_number: streetNumber,
-        country: country,
         state_name: state,
         city_name: city,
         latitude: latitude,
