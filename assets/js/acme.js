@@ -304,37 +304,55 @@ $(document).ready(function () {
   ///////////////////////////////////////////////////////////////////////////
   function fillCountrySelector() {
     $.get('https://api.mercadolibre.com/countries', function (countries) {
-      $('#country').html('<option>Selecciona el país...</option>')
+      $('#country').html('<option>Selecciona el país...</option>  ')
+
+      var selected = ""
 
       for (country in countries) {
+        if (countries[country].id == "AR") selected = "selected"
+
         $('#country').append(
-          "<option value='" +
+          "<option " + selected + " value='" +
             countries[country].id +
             "'>" +
             countries[country].name +
             '</option>'
         )
+
+        selected = " "
       }
+
+      if (selected) $('#country').change()
     })
   } //
 
   $('#country').change(function () {
     var selectedCountry = $('#country option:selected').val()
+
     $.get(
       'https://api.mercadolibre.com/countries/' + selectedCountry,
       function (regions) {
         regions = regions.states
+
         $('#states').html('<option>Selecciona la región...</option>')
 
+        var selected = ""
+
         for (region in regions) {
+          if (regions[region].id == "AR-C") selected = "selected"
+
           $('#states').append(
-            "<option value='" +
+            "<option " + selected + " value='" +
               regions[region].id +
               "'>" +
               regions[region].name +
               '</option>'
           )
+
+          selected = " "
         }
+
+        if (selected) $('#states').change()
       }
     )
   })
@@ -348,14 +366,20 @@ $(document).ready(function () {
       cities = cities.cities
       $('#cities').html('<option>Selecciona la ciudad o comuna...</option>')
 
+      var selected = ""
+
       for (city in cities) {
+        if (cities[city].id == 'TUxBQkJBTDMxMDZa') selected = "selected"
+
         $('#cities').append(
-          "<option value='" +
+          "<option " + selected + " value='" +
             cities[city].id +
             "'>" +
             cities[city].name +
             '</option>'
         )
+
+        selected = " "
       }
     })
   })

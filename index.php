@@ -44,7 +44,7 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 				</h5>
 			</div>
 
-			<div id="collapseOne" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordion">
+			<div id="collapseOne" class="collapse collapsed show" aria-labelledby="headingOne" data-parent="#accordion">
 				<div class="card-body">
 					<table class="table table-striped">
 						<tbody>
@@ -55,11 +55,11 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 							<tr>
 								<th>
 									<label for="streetName">Street Name:</label></th>
-								<td><input type="text" placeholder="Street name" id="streetName"></td>
+								<td><input type="text" placeholder="Street name" id="streetName" value="Cerrito"></td>
 							</tr>
 							<tr>
 								<th><label for="streetNumber">Street Number:</label></th>
-								<td><input type="text" placeholder="Street Number" id="streetNumber"></td>
+								<td><input type="text" placeholder="Street Number" id="streetNumber" value="100"></td>
 							</tr>
 							<tr>
 								<th><label for="country">Country:</label></th>
@@ -80,15 +80,15 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 							</tr>
 							<tr>
 								<th><label for="latitude">Latitude:</label></th>
-								<td><input type="text" placeholder="Latitude" id="latitude"></td>
+								<td><input type="text" placeholder="Latitude" id="latitude" value="-34.6074406"></td>
 							</tr>
 							<tr>
 								<th><label for="longitude">Longitude:</label></th>
-								<td><input type="text" placeholder="Longitude" id="longitude"></td>
+								<td><input type="text" placeholder="Longitude" id="longitude" value="-58.3842735"></td>
 							</tr>
 							<tr>
 								<th><label for="addressReference">Address Reference:</label></th>
-								<td><input type="text" placeholder="Address Reference" id="addressReference"></td>
+								<td><input type="text" placeholder="Address Reference" id="addressReference" value="Cerquita de acá"></td>
 							</tr>
 							<tr>
 								<th><label for="externalStoreID">External Store ID:</label></th>
