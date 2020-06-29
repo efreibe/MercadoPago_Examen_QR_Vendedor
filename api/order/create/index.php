@@ -17,5 +17,5 @@ $json = $_POST["json"];
 
 $url = "https://api.mercadopago.com/mpmobile/instore/qr/$collector_id/$external_id";
 
-echo curl_call("post","$url?access_token=$access_token",$json);
+curl_call("post","$url?access_token=$access_token",$json);
 ?>

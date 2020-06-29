@@ -16,5 +16,5 @@ global $access_token, $collector_id, $integrator_id_test, $country_id;
 $url = "https://api.mercadopago.com/users/$collector_id/store";
 $json = $_POST["json"];
 
-echo curl_call("post","$url?access_token=$access_token", $json);
+curl_call("post","$url?access_token=$access_token", $json);
 ?>
