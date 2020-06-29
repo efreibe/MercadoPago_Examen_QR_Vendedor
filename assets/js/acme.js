@@ -27,7 +27,15 @@ $(document).ready(function () {
   // borrando la caché del navegador.
   fillCountrySelector()
 
+  var documento = "xxxxxxxx"
+  var contador = window.location.hash.substring(1) || '001'
+
   // Abre modal al pulsar sobre el botón de pagar con Mercado Pago.
+  $("#storeName").val(`Sucursal ${documento}`)
+  $("#externalStoreID").val(`suc${documento}${contador}`)
+  $("#posName").val(`POS ${documento}`)
+  $("#externalPOSID").val(`pos${documento}${contador}`)
+  $("#external_reference").val(`ref${documento}${contador}`)
 
   $('#exampleModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Botón que gatilla la apertura modal
@@ -369,7 +377,7 @@ $(document).ready(function () {
       var selected = ""
 
       for (city in cities) {
-        if (cities[city].id == 'TUxBQkJBTDMxMDZa') selected = "selected"
+        if (cities[city].id == 'TUxBQlBBTDI1MTVa') selected = "selected"
 
         $('#cities').append(
           "<option " + selected + " value='" +
@@ -426,7 +434,7 @@ $(document).ready(function () {
     ) {
       console.log('Crea store:')
       console.log(results)
-      $('store_id').val(results.id) // TODO: Agrego para que sea mas facil
+      $('#store_id').val(results.id) // TODO: Agrego para que sea mas facil
       $('#responseStore').text(JSON.stringify(results))
     })
   })

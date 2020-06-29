@@ -55,11 +55,11 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 							<tr>
 								<th>
 									<label for="streetName">Street Name:</label></th>
-								<td><input type="text" placeholder="Street name" id="streetName" value="Cerrito"></td>
+								<td><input type="text" placeholder="Street name" id="streetName" value="Sinclair"></td>
 							</tr>
 							<tr>
 								<th><label for="streetNumber">Street Number:</label></th>
-								<td><input type="text" placeholder="Street Number" id="streetNumber" value="100"></td>
+								<td><input type="text" placeholder="Street Number" id="streetNumber" value="2929"></td>
 							</tr>
 							<tr>
 								<th><label for="country">Country:</label></th>
@@ -80,15 +80,15 @@ IMPORTANTE: Ingresa aquí, sustituyendo este texto, tu DNI/RUT o identificador d
 							</tr>
 							<tr>
 								<th><label for="latitude">Latitude:</label></th>
-								<td><input type="text" placeholder="Latitude" id="latitude" value="-34.6074406"></td>
+								<td><input type="text" placeholder="Latitude" id="latitude" value="-34.5756022"></td>
 							</tr>
 							<tr>
 								<th><label for="longitude">Longitude:</label></th>
-								<td><input type="text" placeholder="Longitude" id="longitude" value="-58.3842735"></td>
+								<td><input type="text" placeholder="Longitude" id="longitude" value="-58.4249225"></td>
 							</tr>
 							<tr>
 								<th><label for="addressReference">Address Reference:</label></th>
-								<td><input type="text" placeholder="Address Reference" id="addressReference" value="Cerquita de acá"></td>
+								<td><input type="text" placeholder="Address Reference" id="addressReference" value="Piso 1"></td>
 							</tr>
 							<tr>
 								<th><label for="externalStoreID">External Store ID:</label></th>
