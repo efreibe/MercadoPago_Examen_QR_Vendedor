@@ -14,7 +14,7 @@
 // correctamente todo el flujo.
 // Busca los comentarios que dicen: REVISA AQUÍ:
 
-const fullUrl = 'https://mercadopago-examen-qr-vendedor.herokuapp.com/'
+const serverUrl = 'https://mercadopago-examen-qr-vendedor.herokuapp.com'
 
 $(document).ready(function () {
   // Define 10 minutos de timeout de una orden
@@ -27,15 +27,15 @@ $(document).ready(function () {
   // borrando la caché del navegador.
   fillCountrySelector()
 
-  var documento = "xxxxxxxx"
+  var documento = 'xxxxxxxx'
   var contador = window.location.hash.substring(1) || '001'
 
   // Abre modal al pulsar sobre el botón de pagar con Mercado Pago.
-  $("#storeName").val(`Sucursal ${documento}`)
-  $("#externalStoreID").val(`suc${documento}${contador}`)
-  $("#posName").val(`POS ${documento}`)
-  $("#externalPOSID").val(`pos${documento}${contador}`)
-  $("#external_reference").val(`ref${documento}${contador}`)
+  $('#storeName').val(`Sucursal ${documento}`)
+  $('#externalStoreID').val(`suc${documento}${contador}`)
+  $('#posName').val(`POS ${documento}`)
+  $('#externalPOSID').val(`pos${documento}${contador}`)
+  $('#external_reference').val(`ref${documento}${contador}`)
 
   $('#exampleModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Botón que gatilla la apertura modal
@@ -88,7 +88,7 @@ $(document).ready(function () {
 
             var orderJSON = {
               external_reference: external_reference,
-              notification_url: `${fullUrl}/api/notifications/index.php`,
+              notification_url: `${serverUrl}/api/notifications/index.php`,
               items: items,
             }
 
@@ -116,101 +116,107 @@ $(document).ready(function () {
                 checkStatus = setInterval(function () {
                   // Comprueba estado del pago vía Seach de Merchant_order
 
-                  $.get(
-                    'api/order/status/',
-                    { external_reference: external_reference },
-                    function (data) {
-                      console.log('Search de Merchant_order:')
+                  if ($('#usarSearch').prop('checked')) {
+                    $.get(
+                      'api/order/status/',
+                      { external_reference: external_reference },
+                      function (data) {
+                        console.log('Search de Merchant_order:')
+                        console.log(data)
+
+                        var elements = data.elements
+                        var totalElements = data.total
+
+                        if (totalElements > 0) {
+                          var orderStatus = elements[totalElements - 1].status
+                          $('#orderStatus').text(orderStatus)
+                          $('#loading').html(
+                            "<img src='assets/img/ajax-loader.gif'>"
+                          )
+
+                          try {
+                            if (
+                              orderStatus == 'opened' &&
+                              elements[totalElements - 1].payments[0].status ==
+                                'rejected'
+                            ) {
+                              // print
+                              if ($('#paymentStatusRejected').text() == '') {
+                                $('#paymentStatusRejected').text(
+                                  JSON.stringify(data)
+                                )
+                              }
+                            }
+                          } catch (e) {}
+
+                          // Si la orden se cerró (pagó) termina el timeout y pinta el JSON resultante y cierra el modal
+
+                          if (orderStatus == 'closed') {
+                            if (cashSound) {
+                              playSound('cash')
+                            }
+                            cashSound = false
+                            setTimeout(clearInterval(checkStatus), 3000)
+
+                            $('#orderFinalStatus').text(
+                              elements[totalElements - 1]
+                            )
+                            $('#exampleModal').modal('hide')
+                            $('#paymentStatusSearch').text(JSON.stringify(data))
+                          } // Fin if
+                        } // Fin totalElements
+                      }
+                    )
+                  } else {
+                    // Comprueba el estado del pago de la orden en servicio de recepción de notificaciones
+
+                    $.get('api/notifications/get/', {}, function (data) {
+                      console.log('Search Notifications:')
                       console.log(data)
 
-                      var elements = data.elements
-                      var totalElements = data.total
-
-                      if (totalElements > 0) {
-                        var orderStatus = elements[totalElements - 1].status
-                        $('#orderStatus').text(orderStatus)
+                      if (
+                        data.status == 'opened' &&
+                        data.external_reference == external_reference
+                      ) {
+                        $('#orderStatus').text(data.status)
                         $('#loading').html(
                           "<img src='assets/img/ajax-loader.gif'>"
                         )
+                      }
 
-                        try {
-                          if (
-                            orderStatus == 'opened' &&
-                            elements[totalElements - 1].payments[0].status ==
-                              'rejected'
-                          ) {
-                            // print
-                            if ($('#paymentStatusRejected').text() == '') {
-                              $('#paymentStatusRejected').text(
-                                JSON.stringify(data)
-                              )
-                            }
+                      try {
+                        if (
+                          orderStatus == 'opened' &&
+                          elements[totalElements - 1].payments[0].status ==
+                            'rejected'
+                        ) {
+                          // print
+                          if ($('#paymentStatusRejected').text() == '') {
+                            $('#paymentStatusRejected').text(
+                              JSON.stringify(data)
+                            )
                           }
-                        } catch (e) {}
-
-                        // Si la orden se cerró (pagó) termina el timeout y pinta el JSON resultante y cierra el modal
-
-                        if (orderStatus == 'closed') {
-                          if (cashSound) {
-                            playSound('cash')
-                          }
-                          cashSound = false
-                          setTimeout(clearInterval(checkStatus), 3000)
-
-                          $('#orderFinalStatus').text(
-                            elements[totalElements - 1]
-                          )
-                          $('#exampleModal').modal('hide')
-                          $('#paymentStatusSearch').text(JSON.stringify(data))
-                        } // Fin if
-                      } // Fin totalElements
-                    }
-                  )
-
-                  // Comprueba el estado del pago de la orden en servicio de recepción de notificaciones
-
-                  $.get('api/notifications/get/', {}, function (data) {
-                    console.log('Search Notifications:')
-                    console.log(data)
-
-                    if (
-                      data.status == 'opened' &&
-                      data.external_reference == external_reference
-                    ) {
-                      $('#orderStatus').text(data.status)
-                      $('#loading').html(
-                        "<img src='assets/img/ajax-loader.gif'>"
-                      )
-                    }
-
-                    try {
-                      if (
-                        orderStatus == 'opened' &&
-                        elements[totalElements - 1].payments[0].status ==
-                          'rejected'
-                      ) {
-                        // print
-                        if ($('#paymentStatusRejected').text() == '') {
-                          $('#paymentStatusRejected').text(JSON.stringify(data))
                         }
-                      }
-                    } catch (e) {}
+                      } catch (e) {}
 
-                    // Si la orden se cerró (pagó) se termina la búsqueda y cierra modal.
+                      // Si la orden se cerró (pagó) se termina la búsqueda y cierra modal.
 
-                    if (
-                      data.status == 'closed' &&
-                      data.external_reference == external_reference
-                    ) {
-                      if (cashSound) {
-                        playSound('cash')
+                      if (
+                        data.status == 'closed' &&
+                        data.external_reference == external_reference
+                      ) {
+                        if (cashSound) {
+                          playSound('cash')
+                        }
+                        cashSound = false
+                        setTimeout(clearInterval(checkStatus), 3000)
+                        $('#exampleModal').modal('hide')
+                        $('#paymentStatusNotification').text(
+                          JSON.stringify(data)
+                        )
                       }
-                      cashSound = false
-                      setTimeout(clearInterval(checkStatus), 3000)
-                      $('#exampleModal').modal('hide')
-                      $('#paymentStatusNotification').text(JSON.stringify(data))
-                    }
-                  })
+                    })
+                  }
                 }, 3000) // finaliza intervalo
               }
             ) // end get pos information
@@ -314,20 +320,22 @@ $(document).ready(function () {
     $.get('https://api.mercadolibre.com/countries', function (countries) {
       $('#country').html('<option>Selecciona el país...</option>  ')
 
-      var selected = ""
+      var selected = ''
 
       for (country in countries) {
-        if (countries[country].id == "AR") selected = "selected"
+        if (countries[country].id == 'AR') selected = 'selected'
 
         $('#country').append(
-          "<option " + selected + " value='" +
+          '<option ' +
+            selected +
+            " value='" +
             countries[country].id +
             "'>" +
             countries[country].name +
             '</option>'
         )
 
-        selected = " "
+        selected = ' '
       }
 
       if (selected) $('#country').change()
@@ -344,20 +352,22 @@ $(document).ready(function () {
 
         $('#states').html('<option>Selecciona la región...</option>')
 
-        var selected = ""
+        var selected = ''
 
         for (region in regions) {
-          if (regions[region].id == "AR-C") selected = "selected"
+          if (regions[region].id == 'AR-C') selected = 'selected'
 
           $('#states').append(
-            "<option " + selected + " value='" +
+            '<option ' +
+              selected +
+              " value='" +
               regions[region].id +
               "'>" +
               regions[region].name +
               '</option>'
           )
 
-          selected = " "
+          selected = ' '
         }
 
         if (selected) $('#states').change()
@@ -374,20 +384,22 @@ $(document).ready(function () {
       cities = cities.cities
       $('#cities').html('<option>Selecciona la ciudad o comuna...</option>')
 
-      var selected = ""
+      var selected = ''
 
       for (city in cities) {
-        if (cities[city].id == 'TUxBQlBBTDI1MTVa') selected = "selected"
+        if (cities[city].id == 'TUxBQlBBTDI1MTVa') selected = 'selected'
 
         $('#cities').append(
-          "<option " + selected + " value='" +
+          '<option ' +
+            selected +
+            " value='" +
             cities[city].id +
             "'>" +
             cities[city].name +
             '</option>'
         )
 
-        selected = " "
+        selected = ' '
       }
     })
   })
