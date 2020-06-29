@@ -29,7 +29,7 @@ if(isset($notification['topic'])){$topic =$notification['topic'];$n=$n+1;}else{$
 
 
 
-if($n==2){
+if ($n==2){
 	// ***********************************************
 	// GUARDAR LOS LA NOTIFICACIÓN EN ARCHIVO DE TEXTO
 	// ***********************************************
@@ -47,12 +47,8 @@ if($n==2){
 	fclose($fp);
 
 	echo $resource;
-
-
-}else{
-	
+}
+else{
 	// Si llegase otro tipo de notificación igual responderá http 200 pero no hará nada.
-
 	header("HTTP/1.1 200 OK");
-
 }

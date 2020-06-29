@@ -1,0 +1,8 @@
+{
+  "liveServer.settings.https": {
+    "enable": true,
+    "cert": "/Users/ernestofreiberg/github/MercadoPago_Examen_QR_Vendedor/server.crt",
+    "key": "/Users/ernestofreiberg/github/MercadoPago_Examen_QR_Vendedor/server.key",
+    "passphrase": "1234"
+  }
+}
