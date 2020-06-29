@@ -13,7 +13,7 @@ global $access_token, $collector_id, $integrator_id_test, $country_id;
  // Sustituye el método por su correspondiente: get, put, post, delete
  // Pista: Revisa detenidamente el endpoint y encuentra el fallo
 
-$url = "https://api.mercadopago.com/users/$collector_id/store";
+$url = "https://api.mercadopago.com/users/$collector_id/stores";
 $json = $_POST["json"];
 
 curl_call("post","$url?access_token=$access_token", $json);
